@@ -5,7 +5,7 @@ MAINTAINER Dino.Korah@RedMatter.com
 ENV TZ="Europe/London" \
 	BITBUCKET_USER=daemon \
 	BITBUCKET_GROUP=daemon \
-	BITBUCKET_BACKUP_HOME=/app/bitbucket-backup \
+	BITBUCKET_BACKUP_HOME=/app/atlassian/bitbucket/backup \
 	BITBUCKET_BACKUP_USER=backup \
 	BITBUCKET_BACKUP_PASS=letmein \
 	BITBUCKET_URL=http://bitbucket \
@@ -26,14 +26,6 @@ RUN ( \
 
 		# so that each command can be seen clearly in the build output
 		set -e -x; \
-
-		in_array() { \
-			local haystack=${1}[@];\
-			local needle=${2};\
-			for i in ${!haystack}; do [ ${i} != ${needle} ] || return 0; done; \
-			return 1;\
-		}; \
-		array_join() { local IFS="$1"; shift; echo "$*"; }; \
 
 		# update and upgrade for vulnerability fixes etc.
 		apt-get update; \
@@ -76,7 +68,7 @@ RUN ( \
 		# give sudo permission for the user on cron start script
 		echo "${BITBUCKET_USER} ALL=(ALL) NOPASSWD: /start-cron.sh" > /etc/sudoers.d/cron ; \
 		( \
-			echo "0 0 * * * ${BITBUCKET_BACKUP_HOME}/bin/bitbucket.diy-backup.sh >${BITBUCKET_BACKUP_LOG} 2>&1"; \ 
+			echo "0 0 * * * ${BITBUCKET_BACKUP_HOME}/bin/bitbucket.diy-backup.sh >${BITBUCKET_BACKUP_LOG} 2>&1"; \
 			echo "50 23 * * * ${BITBUCKET_BACKUP_HOME}/bin/rotate-log.sh >/dev/null 2>&1"; \
 		) | /usr/bin/crontab -u ${BITBUCKET_USER} - ; \
 		chmod go-rwx /var/spool/cron/crontabs/${BITBUCKET_USER} ; \
@@ -85,7 +77,8 @@ RUN ( \
 		# remove packages that we don't need
 		apt-get remove -y $BUILD_DEPS ; \
 		apt-get autoremove -y ; \
-		apt-get clean \
+		apt-get clean; \
+		rm -rf /var/lib/{apt,dpkg,cache,log}/; \
 	)
 
 WORKDIR ${BITBUCKET_BACKUP_HOME}
