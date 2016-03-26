@@ -16,7 +16,7 @@ ENV TZ="Europe/London" \
 ENV BITBUCKET_BACKUP_LOG=${BITBUCKET_BACKUP_HOME}/log/bitbucket-backup.log
 
 # pull in the bits we need for the build
-ADD https://bitbucket.org/atlassianlabs/atlassian-bitbucket-diy-backup/get/a2f7e67e9fd8.zip /tmp/files.zip
+ADD https://bitbucket.org/redmatter-uk/atlassian-bitbucket-diy-backup/get/1dcd73ba8f69.zip /tmp/files.zip
 COPY start-cron.sh bash_set_u.patch bitbucket.diy-backup.vars.sh rotate-log.sh /tmp/
 
 RUN ( \
