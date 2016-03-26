@@ -1,6 +1,6 @@
 diff -U 3 -dHBr orig/bitbucket.diy-backup.rsync.sh new/bitbucket.diy-backup.rsync.sh
---- orig/bitbucket.diy-backup.rsync.sh	2015-12-23 07:01:45.000000000 +0000
-+++ new/bitbucket.diy-backup.rsync.sh	2016-01-26 19:14:46.588801905 +0000
+--- orig/bitbucket.diy-backup.rsync.sh	2016-03-09 05:28:42.000000000 +0000
++++ new/bitbucket.diy-backup.rsync.sh	2016-03-26 14:55:38.939912988 +0000
 @@ -3,8 +3,8 @@
  check_command "rsync"
  
@@ -16,8 +16,8 @@ diff -U 3 -dHBr orig/bitbucket.diy-backup.rsync.sh new/bitbucket.diy-backup.rsyn
      fi
  
      mkdir -p ${BITBUCKET_BACKUP_HOME}
--    rsync -avh ${RSYNC_QUIET} --delete --delete-excluded --exclude=/caches/ --exclude=/shared/data/db.* --exclude=/export/ --exclude=/log/ --exclude=/plugins/.*/ --exclude=/tmp --exclude=/.lock --exclude=/shared/.lock ${RSYNC_EXCLUDE_REPOS} ${BITBUCKET_HOME} ${BITBUCKET_BACKUP_HOME}
-+    rsync -avh ${RSYNC_QUIET} --delete --delete-excluded --exclude=/caches/ --exclude=/shared/data/db.* --exclude=/export/ --exclude=/log/ --exclude=/plugins/.*/ --exclude=/tmp --exclude=/.lock --exclude=/shared/.lock ${RSYNC_EXCLUDE_REPOS:-} ${BITBUCKET_HOME} ${BITBUCKET_BACKUP_HOME}
+-    rsync -avh ${RSYNC_QUIET} --delete --delete-excluded --exclude=/caches/ --exclude=/shared/data/db.* --exclude=/shared/search/data/ --exclude=/export/ --exclude=/log/ --exclude=/plugins/.*/ --exclude=/tmp --exclude=/.lock --exclude=/shared/.lock ${RSYNC_EXCLUDE_REPOS} ${BITBUCKET_HOME} ${BITBUCKET_BACKUP_HOME}
++    rsync -avh ${RSYNC_QUIET} --delete --delete-excluded --exclude=/caches/ --exclude=/shared/data/db.* --exclude=/shared/search/data/ --exclude=/export/ --exclude=/log/ --exclude=/plugins/.*/ --exclude=/tmp --exclude=/.lock --exclude=/shared/.lock ${RSYNC_EXCLUDE_REPOS:-} ${BITBUCKET_HOME} ${BITBUCKET_BACKUP_HOME}
      if [ $? != 0 ]; then
          bail "Unable to rsync from ${BITBUCKET_HOME} to ${BITBUCKET_BACKUP_HOME}"
      fi
