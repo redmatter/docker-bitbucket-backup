@@ -22,7 +22,7 @@ COPY start-cron.sh bash_set_u.patch bitbucket.diy-backup.vars.sh rotate-log.sh /
 RUN ( \
 		export DEBIAN_FRONTEND=noninteractive; \
 		export BUILD_DEPS="patch unzip"; \
-		export APP_DEPS="tar mysql-client jq rsync bash curl cron sudo"; \
+		export APP_DEPS="tar mysql-client jq rsync bash curl cron sudo ca-certificates"; \
 
 		# so that each command can be seen clearly in the build output
 		set -e -x; \
