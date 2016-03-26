@@ -3,7 +3,7 @@
 # catch use of undefined variables
 set -u
 
-: ${BITBUCKET_BACKUP_HOME:=/app/atlassian/bitbucket/backup}
+: ${BITBUCKET_BACKUP_BASE:=/app/atlassian/bitbucket/backup}
 
 ##
 # It is recomended to `chmod 600 bitbucket.diy-backup.vars.sh` after copying the template.
@@ -45,12 +45,12 @@ BITBUCKET_UID=${BITBUCKET_USER}
 BITBUCKET_GID=${BITBUCKET_GROUP}
 
 # The path to working folder for the backup
-BITBUCKET_BACKUP_ROOT=${BITBUCKET_BACKUP_HOME}/tmp
+BITBUCKET_BACKUP_ROOT=${BITBUCKET_BACKUP_BASE}/tmp
 BITBUCKET_BACKUP_DB=${BITBUCKET_BACKUP_ROOT}/bitbucket-db/
 BITBUCKET_BACKUP_HOME=${BITBUCKET_BACKUP_ROOT}/bitbucket-home/
 
 # The path to where the backup archives are stored
-BITBUCKET_BACKUP_ARCHIVE_ROOT=${BITBUCKET_BACKUP_HOME}/archives
+BITBUCKET_BACKUP_ARCHIVE_ROOT=${BITBUCKET_BACKUP_BASE}/archives
 
 # List of repo IDs which should be excluded from the backup
 # It should be space separated: (2 5 88)
