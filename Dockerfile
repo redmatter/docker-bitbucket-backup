@@ -66,7 +66,7 @@ RUN ( \
 		# remove the ones that come with the package; no need for that
 		rm -f /etc/cron.daily/* ; \
 		# give sudo permission for the user on cron start script
-		echo "${BITBUCKET_USER} ALL=(ALL) NOPASSWD: /start-cron.sh" > /etc/sudoers.d/cron ; \
+		echo "${BITBUCKET_USER} ALL=(ALL) NOPASSWD:SETENV: /start-cron.sh" > /etc/sudoers.d/cron ; \
 		( \
 			echo "0 0 * * * ${BITBUCKET_BACKUP_HOME}/bin/bitbucket.diy-backup.sh >${BITBUCKET_BACKUP_LOG} 2>&1"; \
 			echo "50 23 * * * ${BITBUCKET_BACKUP_HOME}/bin/rotate-log.sh >/dev/null 2>&1"; \
