@@ -87,4 +87,4 @@ VOLUME [ "${BITBUCKET_BACKUP_HOME}/archives", "${BITBUCKET_BACKUP_HOME}/log", "/
 
 USER ${BITBUCKET_USER}
 
-CMD ["sudo", "/start-cron.sh"]
+CMD ["sudo", "-E", "/start-cron.sh"]
