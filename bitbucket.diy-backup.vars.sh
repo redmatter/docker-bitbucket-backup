@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# load and export environment variables
+set -a
+source /etc/environment
+set +a
+
 # catch use of undefined variables
 set -u
 

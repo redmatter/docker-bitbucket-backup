@@ -68,17 +68,6 @@ RUN ( \
 		# give sudo permission for the user on cron start script
 		echo "${BITBUCKET_USER} ALL=(ALL) NOPASSWD: /start-cron.sh" > /etc/sudoers.d/cron ; \
 		( \
-            echo "BITBUCKET_USER=${BITBUCKET_USER}"; \
-            echo "BITBUCKET_GROUP=${BITBUCKET_GROUP}"; \
-            echo "BITBUCKET_BACKUP_HOME=${BITBUCKET_BACKUP_HOME}"; \
-            echo "BITBUCKET_BACKUP_USER=${BITBUCKET_BACKUP_USER}"; \
-            echo "BITBUCKET_BACKUP_PASS=${BITBUCKET_BACKUP_PASS}"; \
-            echo "BITBUCKET_URL=${BITBUCKET_URL}"; \
-            echo "MYSQL_HOST=${MYSQL_HOST}"; \
-            echo "MYSQL_DATABASE=${MYSQL_DATABASE}"; \
-            echo "MYSQL_USER=${MYSQL_USER}"; \
-            echo "MYSQL_PASSWORD=${MYSQL_PASSWORD}"; \
-            echo ""; \
 			echo "0 0 * * * ${BITBUCKET_BACKUP_HOME}/bin/bitbucket.diy-backup.sh >${BITBUCKET_BACKUP_LOG} 2>&1"; \
 			echo "50 23 * * * ${BITBUCKET_BACKUP_HOME}/bin/rotate-log.sh >/dev/null 2>&1"; \
 		) | /usr/bin/crontab -u ${BITBUCKET_USER} - ; \
